@@ -1,0 +1,1233 @@
+Created by PLY version 3.11 (http://www.dabeaz.com/ply)
+
+Grammar
+
+Rule 0     S' -> program
+Rule 1     program -> PROGRAM ID SEMICOLON vars bloque
+Rule 2     program -> PROGRAM ID SEMICOLON bloque
+Rule 3     vars -> VAR vars2
+Rule 4     vars2 -> vars3 TWODOTS tipo SEMICOLON vars2
+Rule 5     vars2 -> vars3 TWODOTS tipo SEMICOLON
+Rule 6     vars3 -> ID COMMA vars3
+Rule 7     vars3 -> ID
+Rule 8     tipo -> INT
+Rule 9     tipo -> FLOAT
+Rule 10    bloque -> OPENBRACKET estatuto bloque1 CLOSEBRACKET
+Rule 11    bloque -> OPENBRACKET estatuto CLOSEBRACKET
+Rule 12    bloque -> OPENBRACKET CLOSEBRACKET
+Rule 13    bloque1 -> estatuto bloque1
+Rule 14    bloque1 -> estatuto
+Rule 15    estatuto -> asignacion
+Rule 16    estatuto -> condicion
+Rule 17    estatuto -> escritura
+Rule 18    condicion -> IF OPENPAREN expresion CLOSEPAREN bloque ELSE bloque SEMICOLON
+Rule 19    condicion -> IF OPENPAREN expresion CLOSEPAREN bloque SEMICOLON
+Rule 20    escritura -> PRINT OPENPAREN es1 CLOSEPAREN SEMICOLON
+Rule 21    es1 -> expresion
+Rule 22    es1 -> CTESTRING
+Rule 23    es1 -> expresion COMMA es1
+Rule 24    es1 -> CTESTRING COMMA es1
+Rule 25    asignacion -> ID EQUALS expresion SEMICOLON
+Rule 26    expresion -> exp BIGGERTHAN exp
+Rule 27    expresion -> exp SMALLTHAN exp
+Rule 28    expresion -> exp DIFFERENTTHAN exp
+Rule 29    expresion -> exp
+Rule 30    exp -> termino exp1 exp
+Rule 31    exp -> termino
+Rule 32    exp1 -> SUM
+Rule 33    exp1 -> SUBTRACT
+Rule 34    termino -> factor t1 termino
+Rule 35    termino -> factor
+Rule 36    t1 -> TIMES
+Rule 37    t1 -> DIV
+Rule 38    factor -> OPENPAREN expresion CLOSEPAREN
+Rule 39    factor -> SUM varcte
+Rule 40    factor -> SUBTRACT varcte
+Rule 41    factor -> varcte
+Rule 42    varcte -> ID
+Rule 43    varcte -> CTEINT
+Rule 44    varcte -> CTEFLOAT
+
+Terminals, with rules where they appear
+
+BIGGERTHAN           : 26
+CLOSEBRACKET         : 10 11 12
+CLOSEPAREN           : 18 19 20 38
+COMMA                : 6 23 24
+CTEFLOAT             : 44
+CTEINT               : 43
+CTESTRING            : 22 24
+DIFFERENTTHAN        : 28
+DIV                  : 37
+ELSE                 : 18
+EQUALS               : 25
+FLOAT                : 9
+ID                   : 1 2 6 7 25 42
+IF                   : 18 19
+INT                  : 8
+OPENBRACKET          : 10 11 12
+OPENPAREN            : 18 19 20 38
+PRINT                : 20
+PROGRAM              : 1 2
+SEMICOLON            : 1 2 4 5 18 19 20 25
+SMALLTHAN            : 27
+SUBTRACT             : 33 40
+SUM                  : 32 39
+TIMES                : 36
+TWODOTS              : 4 5
+VAR                  : 3
+error                : 
+
+Nonterminals, with rules where they appear
+
+asignacion           : 15
+bloque               : 1 2 18 18 19
+bloque1              : 10 13
+condicion            : 16
+es1                  : 20 23 24
+escritura            : 17
+estatuto             : 10 11 13 14
+exp                  : 26 26 27 27 28 28 29 30
+exp1                 : 30
+expresion            : 18 19 21 23 25 38
+factor               : 34 35
+program              : 0
+t1                   : 34
+termino              : 30 31 34
+tipo                 : 4 5
+varcte               : 39 40 41
+vars                 : 1
+vars2                : 3 4
+vars3                : 4 5 6
+
+Parsing method: LALR
+
+state 0
+
+    (0) S' -> . program
+    (1) program -> . PROGRAM ID SEMICOLON vars bloque
+    (2) program -> . PROGRAM ID SEMICOLON bloque
+
+    PROGRAM         shift and go to state 2
+
+    program                        shift and go to state 1
+
+state 1
+
+    (0) S' -> program .
+
+
+
+state 2
+
+    (1) program -> PROGRAM . ID SEMICOLON vars bloque
+    (2) program -> PROGRAM . ID SEMICOLON bloque
+
+    ID              shift and go to state 3
+
+
+state 3
+
+    (1) program -> PROGRAM ID . SEMICOLON vars bloque
+    (2) program -> PROGRAM ID . SEMICOLON bloque
+
+    SEMICOLON       shift and go to state 4
+
+
+state 4
+
+    (1) program -> PROGRAM ID SEMICOLON . vars bloque
+    (2) program -> PROGRAM ID SEMICOLON . bloque
+    (3) vars -> . VAR vars2
+    (10) bloque -> . OPENBRACKET estatuto bloque1 CLOSEBRACKET
+    (11) bloque -> . OPENBRACKET estatuto CLOSEBRACKET
+    (12) bloque -> . OPENBRACKET CLOSEBRACKET
+
+    VAR             shift and go to state 7
+    OPENBRACKET     shift and go to state 8
+
+    vars                           shift and go to state 5
+    bloque                         shift and go to state 6
+
+state 5
+
+    (1) program -> PROGRAM ID SEMICOLON vars . bloque
+    (10) bloque -> . OPENBRACKET estatuto bloque1 CLOSEBRACKET
+    (11) bloque -> . OPENBRACKET estatuto CLOSEBRACKET
+    (12) bloque -> . OPENBRACKET CLOSEBRACKET
+
+    OPENBRACKET     shift and go to state 8
+
+    bloque                         shift and go to state 9
+
+state 6
+
+    (2) program -> PROGRAM ID SEMICOLON bloque .
+
+    $end            reduce using rule 2 (program -> PROGRAM ID SEMICOLON bloque .)
+
+
+state 7
+
+    (3) vars -> VAR . vars2
+    (4) vars2 -> . vars3 TWODOTS tipo SEMICOLON vars2
+    (5) vars2 -> . vars3 TWODOTS tipo SEMICOLON
+    (6) vars3 -> . ID COMMA vars3
+    (7) vars3 -> . ID
+
+    ID              shift and go to state 12
+
+    vars2                          shift and go to state 10
+    vars3                          shift and go to state 11
+
+state 8
+
+    (10) bloque -> OPENBRACKET . estatuto bloque1 CLOSEBRACKET
+    (11) bloque -> OPENBRACKET . estatuto CLOSEBRACKET
+    (12) bloque -> OPENBRACKET . CLOSEBRACKET
+    (15) estatuto -> . asignacion
+    (16) estatuto -> . condicion
+    (17) estatuto -> . escritura
+    (25) asignacion -> . ID EQUALS expresion SEMICOLON
+    (18) condicion -> . IF OPENPAREN expresion CLOSEPAREN bloque ELSE bloque SEMICOLON
+    (19) condicion -> . IF OPENPAREN expresion CLOSEPAREN bloque SEMICOLON
+    (20) escritura -> . PRINT OPENPAREN es1 CLOSEPAREN SEMICOLON
+
+    CLOSEBRACKET    shift and go to state 14
+    ID              shift and go to state 18
+    IF              shift and go to state 19
+    PRINT           shift and go to state 20
+
+    estatuto                       shift and go to state 13
+    asignacion                     shift and go to state 15
+    condicion                      shift and go to state 16
+    escritura                      shift and go to state 17
+
+state 9
+
+    (1) program -> PROGRAM ID SEMICOLON vars bloque .
+
+    $end            reduce using rule 1 (program -> PROGRAM ID SEMICOLON vars bloque .)
+
+
+state 10
+
+    (3) vars -> VAR vars2 .
+
+    OPENBRACKET     reduce using rule 3 (vars -> VAR vars2 .)
+
+
+state 11
+
+    (4) vars2 -> vars3 . TWODOTS tipo SEMICOLON vars2
+    (5) vars2 -> vars3 . TWODOTS tipo SEMICOLON
+
+    TWODOTS         shift and go to state 21
+
+
+state 12
+
+    (6) vars3 -> ID . COMMA vars3
+    (7) vars3 -> ID .
+
+    COMMA           shift and go to state 22
+    TWODOTS         reduce using rule 7 (vars3 -> ID .)
+
+
+state 13
+
+    (10) bloque -> OPENBRACKET estatuto . bloque1 CLOSEBRACKET
+    (11) bloque -> OPENBRACKET estatuto . CLOSEBRACKET
+    (13) bloque1 -> . estatuto bloque1
+    (14) bloque1 -> . estatuto
+    (15) estatuto -> . asignacion
+    (16) estatuto -> . condicion
+    (17) estatuto -> . escritura
+    (25) asignacion -> . ID EQUALS expresion SEMICOLON
+    (18) condicion -> . IF OPENPAREN expresion CLOSEPAREN bloque ELSE bloque SEMICOLON
+    (19) condicion -> . IF OPENPAREN expresion CLOSEPAREN bloque SEMICOLON
+    (20) escritura -> . PRINT OPENPAREN es1 CLOSEPAREN SEMICOLON
+
+    CLOSEBRACKET    shift and go to state 25
+    ID              shift and go to state 18
+    IF              shift and go to state 19
+    PRINT           shift and go to state 20
+
+    estatuto                       shift and go to state 23
+    bloque1                        shift and go to state 24
+    asignacion                     shift and go to state 15
+    condicion                      shift and go to state 16
+    escritura                      shift and go to state 17
+
+state 14
+
+    (12) bloque -> OPENBRACKET CLOSEBRACKET .
+
+    $end            reduce using rule 12 (bloque -> OPENBRACKET CLOSEBRACKET .)
+    ELSE            reduce using rule 12 (bloque -> OPENBRACKET CLOSEBRACKET .)
+    SEMICOLON       reduce using rule 12 (bloque -> OPENBRACKET CLOSEBRACKET .)
+
+
+state 15
+
+    (15) estatuto -> asignacion .
+
+    CLOSEBRACKET    reduce using rule 15 (estatuto -> asignacion .)
+    ID              reduce using rule 15 (estatuto -> asignacion .)
+    IF              reduce using rule 15 (estatuto -> asignacion .)
+    PRINT           reduce using rule 15 (estatuto -> asignacion .)
+
+
+state 16
+
+    (16) estatuto -> condicion .
+
+    CLOSEBRACKET    reduce using rule 16 (estatuto -> condicion .)
+    ID              reduce using rule 16 (estatuto -> condicion .)
+    IF              reduce using rule 16 (estatuto -> condicion .)
+    PRINT           reduce using rule 16 (estatuto -> condicion .)
+
+
+state 17
+
+    (17) estatuto -> escritura .
+
+    CLOSEBRACKET    reduce using rule 17 (estatuto -> escritura .)
+    ID              reduce using rule 17 (estatuto -> escritura .)
+    IF              reduce using rule 17 (estatuto -> escritura .)
+    PRINT           reduce using rule 17 (estatuto -> escritura .)
+
+
+state 18
+
+    (25) asignacion -> ID . EQUALS expresion SEMICOLON
+
+    EQUALS          shift and go to state 26
+
+
+state 19
+
+    (18) condicion -> IF . OPENPAREN expresion CLOSEPAREN bloque ELSE bloque SEMICOLON
+    (19) condicion -> IF . OPENPAREN expresion CLOSEPAREN bloque SEMICOLON
+
+    OPENPAREN       shift and go to state 27
+
+
+state 20
+
+    (20) escritura -> PRINT . OPENPAREN es1 CLOSEPAREN SEMICOLON
+
+    OPENPAREN       shift and go to state 28
+
+
+state 21
+
+    (4) vars2 -> vars3 TWODOTS . tipo SEMICOLON vars2
+    (5) vars2 -> vars3 TWODOTS . tipo SEMICOLON
+    (8) tipo -> . INT
+    (9) tipo -> . FLOAT
+
+    INT             shift and go to state 30
+    FLOAT           shift and go to state 31
+
+    tipo                           shift and go to state 29
+
+state 22
+
+    (6) vars3 -> ID COMMA . vars3
+    (6) vars3 -> . ID COMMA vars3
+    (7) vars3 -> . ID
+
+    ID              shift and go to state 12
+
+    vars3                          shift and go to state 32
+
+state 23
+
+    (13) bloque1 -> estatuto . bloque1
+    (14) bloque1 -> estatuto .
+    (13) bloque1 -> . estatuto bloque1
+    (14) bloque1 -> . estatuto
+    (15) estatuto -> . asignacion
+    (16) estatuto -> . condicion
+    (17) estatuto -> . escritura
+    (25) asignacion -> . ID EQUALS expresion SEMICOLON
+    (18) condicion -> . IF OPENPAREN expresion CLOSEPAREN bloque ELSE bloque SEMICOLON
+    (19) condicion -> . IF OPENPAREN expresion CLOSEPAREN bloque SEMICOLON
+    (20) escritura -> . PRINT OPENPAREN es1 CLOSEPAREN SEMICOLON
+
+    CLOSEBRACKET    reduce using rule 14 (bloque1 -> estatuto .)
+    ID              shift and go to state 18
+    IF              shift and go to state 19
+    PRINT           shift and go to state 20
+
+    estatuto                       shift and go to state 23
+    bloque1                        shift and go to state 33
+    asignacion                     shift and go to state 15
+    condicion                      shift and go to state 16
+    escritura                      shift and go to state 17
+
+state 24
+
+    (10) bloque -> OPENBRACKET estatuto bloque1 . CLOSEBRACKET
+
+    CLOSEBRACKET    shift and go to state 34
+
+
+state 25
+
+    (11) bloque -> OPENBRACKET estatuto CLOSEBRACKET .
+
+    $end            reduce using rule 11 (bloque -> OPENBRACKET estatuto CLOSEBRACKET .)
+    ELSE            reduce using rule 11 (bloque -> OPENBRACKET estatuto CLOSEBRACKET .)
+    SEMICOLON       reduce using rule 11 (bloque -> OPENBRACKET estatuto CLOSEBRACKET .)
+
+
+state 26
+
+    (25) asignacion -> ID EQUALS . expresion SEMICOLON
+    (26) expresion -> . exp BIGGERTHAN exp
+    (27) expresion -> . exp SMALLTHAN exp
+    (28) expresion -> . exp DIFFERENTTHAN exp
+    (29) expresion -> . exp
+    (30) exp -> . termino exp1 exp
+    (31) exp -> . termino
+    (34) termino -> . factor t1 termino
+    (35) termino -> . factor
+    (38) factor -> . OPENPAREN expresion CLOSEPAREN
+    (39) factor -> . SUM varcte
+    (40) factor -> . SUBTRACT varcte
+    (41) factor -> . varcte
+    (42) varcte -> . ID
+    (43) varcte -> . CTEINT
+    (44) varcte -> . CTEFLOAT
+
+    OPENPAREN       shift and go to state 40
+    SUM             shift and go to state 41
+    SUBTRACT        shift and go to state 43
+    ID              shift and go to state 35
+    CTEINT          shift and go to state 44
+    CTEFLOAT        shift and go to state 45
+
+    expresion                      shift and go to state 36
+    exp                            shift and go to state 37
+    termino                        shift and go to state 38
+    factor                         shift and go to state 39
+    varcte                         shift and go to state 42
+
+state 27
+
+    (18) condicion -> IF OPENPAREN . expresion CLOSEPAREN bloque ELSE bloque SEMICOLON
+    (19) condicion -> IF OPENPAREN . expresion CLOSEPAREN bloque SEMICOLON
+    (26) expresion -> . exp BIGGERTHAN exp
+    (27) expresion -> . exp SMALLTHAN exp
+    (28) expresion -> . exp DIFFERENTTHAN exp
+    (29) expresion -> . exp
+    (30) exp -> . termino exp1 exp
+    (31) exp -> . termino
+    (34) termino -> . factor t1 termino
+    (35) termino -> . factor
+    (38) factor -> . OPENPAREN expresion CLOSEPAREN
+    (39) factor -> . SUM varcte
+    (40) factor -> . SUBTRACT varcte
+    (41) factor -> . varcte
+    (42) varcte -> . ID
+    (43) varcte -> . CTEINT
+    (44) varcte -> . CTEFLOAT
+
+    OPENPAREN       shift and go to state 40
+    SUM             shift and go to state 41
+    SUBTRACT        shift and go to state 43
+    ID              shift and go to state 35
+    CTEINT          shift and go to state 44
+    CTEFLOAT        shift and go to state 45
+
+    expresion                      shift and go to state 46
+    exp                            shift and go to state 37
+    termino                        shift and go to state 38
+    factor                         shift and go to state 39
+    varcte                         shift and go to state 42
+
+state 28
+
+    (20) escritura -> PRINT OPENPAREN . es1 CLOSEPAREN SEMICOLON
+    (21) es1 -> . expresion
+    (22) es1 -> . CTESTRING
+    (23) es1 -> . expresion COMMA es1
+    (24) es1 -> . CTESTRING COMMA es1
+    (26) expresion -> . exp BIGGERTHAN exp
+    (27) expresion -> . exp SMALLTHAN exp
+    (28) expresion -> . exp DIFFERENTTHAN exp
+    (29) expresion -> . exp
+    (30) exp -> . termino exp1 exp
+    (31) exp -> . termino
+    (34) termino -> . factor t1 termino
+    (35) termino -> . factor
+    (38) factor -> . OPENPAREN expresion CLOSEPAREN
+    (39) factor -> . SUM varcte
+    (40) factor -> . SUBTRACT varcte
+    (41) factor -> . varcte
+    (42) varcte -> . ID
+    (43) varcte -> . CTEINT
+    (44) varcte -> . CTEFLOAT
+
+    CTESTRING       shift and go to state 49
+    OPENPAREN       shift and go to state 40
+    SUM             shift and go to state 41
+    SUBTRACT        shift and go to state 43
+    ID              shift and go to state 35
+    CTEINT          shift and go to state 44
+    CTEFLOAT        shift and go to state 45
+
+    es1                            shift and go to state 47
+    expresion                      shift and go to state 48
+    exp                            shift and go to state 37
+    termino                        shift and go to state 38
+    factor                         shift and go to state 39
+    varcte                         shift and go to state 42
+
+state 29
+
+    (4) vars2 -> vars3 TWODOTS tipo . SEMICOLON vars2
+    (5) vars2 -> vars3 TWODOTS tipo . SEMICOLON
+
+    SEMICOLON       shift and go to state 50
+
+
+state 30
+
+    (8) tipo -> INT .
+
+    SEMICOLON       reduce using rule 8 (tipo -> INT .)
+
+
+state 31
+
+    (9) tipo -> FLOAT .
+
+    SEMICOLON       reduce using rule 9 (tipo -> FLOAT .)
+
+
+state 32
+
+    (6) vars3 -> ID COMMA vars3 .
+
+    TWODOTS         reduce using rule 6 (vars3 -> ID COMMA vars3 .)
+
+
+state 33
+
+    (13) bloque1 -> estatuto bloque1 .
+
+    CLOSEBRACKET    reduce using rule 13 (bloque1 -> estatuto bloque1 .)
+
+
+state 34
+
+    (10) bloque -> OPENBRACKET estatuto bloque1 CLOSEBRACKET .
+
+    $end            reduce using rule 10 (bloque -> OPENBRACKET estatuto bloque1 CLOSEBRACKET .)
+    ELSE            reduce using rule 10 (bloque -> OPENBRACKET estatuto bloque1 CLOSEBRACKET .)
+    SEMICOLON       reduce using rule 10 (bloque -> OPENBRACKET estatuto bloque1 CLOSEBRACKET .)
+
+
+state 35
+
+    (42) varcte -> ID .
+
+    TIMES           reduce using rule 42 (varcte -> ID .)
+    DIV             reduce using rule 42 (varcte -> ID .)
+    SUM             reduce using rule 42 (varcte -> ID .)
+    SUBTRACT        reduce using rule 42 (varcte -> ID .)
+    BIGGERTHAN      reduce using rule 42 (varcte -> ID .)
+    SMALLTHAN       reduce using rule 42 (varcte -> ID .)
+    DIFFERENTTHAN   reduce using rule 42 (varcte -> ID .)
+    SEMICOLON       reduce using rule 42 (varcte -> ID .)
+    CLOSEPAREN      reduce using rule 42 (varcte -> ID .)
+    COMMA           reduce using rule 42 (varcte -> ID .)
+
+
+state 36
+
+    (25) asignacion -> ID EQUALS expresion . SEMICOLON
+
+    SEMICOLON       shift and go to state 51
+
+
+state 37
+
+    (26) expresion -> exp . BIGGERTHAN exp
+    (27) expresion -> exp . SMALLTHAN exp
+    (28) expresion -> exp . DIFFERENTTHAN exp
+    (29) expresion -> exp .
+
+    BIGGERTHAN      shift and go to state 52
+    SMALLTHAN       shift and go to state 53
+    DIFFERENTTHAN   shift and go to state 54
+    SEMICOLON       reduce using rule 29 (expresion -> exp .)
+    CLOSEPAREN      reduce using rule 29 (expresion -> exp .)
+    COMMA           reduce using rule 29 (expresion -> exp .)
+
+
+state 38
+
+    (30) exp -> termino . exp1 exp
+    (31) exp -> termino .
+    (32) exp1 -> . SUM
+    (33) exp1 -> . SUBTRACT
+
+    BIGGERTHAN      reduce using rule 31 (exp -> termino .)
+    SMALLTHAN       reduce using rule 31 (exp -> termino .)
+    DIFFERENTTHAN   reduce using rule 31 (exp -> termino .)
+    SEMICOLON       reduce using rule 31 (exp -> termino .)
+    CLOSEPAREN      reduce using rule 31 (exp -> termino .)
+    COMMA           reduce using rule 31 (exp -> termino .)
+    SUM             shift and go to state 56
+    SUBTRACT        shift and go to state 57
+
+    exp1                           shift and go to state 55
+
+state 39
+
+    (34) termino -> factor . t1 termino
+    (35) termino -> factor .
+    (36) t1 -> . TIMES
+    (37) t1 -> . DIV
+
+    SUM             reduce using rule 35 (termino -> factor .)
+    SUBTRACT        reduce using rule 35 (termino -> factor .)
+    BIGGERTHAN      reduce using rule 35 (termino -> factor .)
+    SMALLTHAN       reduce using rule 35 (termino -> factor .)
+    DIFFERENTTHAN   reduce using rule 35 (termino -> factor .)
+    SEMICOLON       reduce using rule 35 (termino -> factor .)
+    CLOSEPAREN      reduce using rule 35 (termino -> factor .)
+    COMMA           reduce using rule 35 (termino -> factor .)
+    TIMES           shift and go to state 59
+    DIV             shift and go to state 60
+
+    t1                             shift and go to state 58
+
+state 40
+
+    (38) factor -> OPENPAREN . expresion CLOSEPAREN
+    (26) expresion -> . exp BIGGERTHAN exp
+    (27) expresion -> . exp SMALLTHAN exp
+    (28) expresion -> . exp DIFFERENTTHAN exp
+    (29) expresion -> . exp
+    (30) exp -> . termino exp1 exp
+    (31) exp -> . termino
+    (34) termino -> . factor t1 termino
+    (35) termino -> . factor
+    (38) factor -> . OPENPAREN expresion CLOSEPAREN
+    (39) factor -> . SUM varcte
+    (40) factor -> . SUBTRACT varcte
+    (41) factor -> . varcte
+    (42) varcte -> . ID
+    (43) varcte -> . CTEINT
+    (44) varcte -> . CTEFLOAT
+
+    OPENPAREN       shift and go to state 40
+    SUM             shift and go to state 41
+    SUBTRACT        shift and go to state 43
+    ID              shift and go to state 35
+    CTEINT          shift and go to state 44
+    CTEFLOAT        shift and go to state 45
+
+    expresion                      shift and go to state 61
+    exp                            shift and go to state 37
+    termino                        shift and go to state 38
+    factor                         shift and go to state 39
+    varcte                         shift and go to state 42
+
+state 41
+
+    (39) factor -> SUM . varcte
+    (42) varcte -> . ID
+    (43) varcte -> . CTEINT
+    (44) varcte -> . CTEFLOAT
+
+    ID              shift and go to state 35
+    CTEINT          shift and go to state 44
+    CTEFLOAT        shift and go to state 45
+
+    varcte                         shift and go to state 62
+
+state 42
+
+    (41) factor -> varcte .
+
+    TIMES           reduce using rule 41 (factor -> varcte .)
+    DIV             reduce using rule 41 (factor -> varcte .)
+    SUM             reduce using rule 41 (factor -> varcte .)
+    SUBTRACT        reduce using rule 41 (factor -> varcte .)
+    BIGGERTHAN      reduce using rule 41 (factor -> varcte .)
+    SMALLTHAN       reduce using rule 41 (factor -> varcte .)
+    DIFFERENTTHAN   reduce using rule 41 (factor -> varcte .)
+    SEMICOLON       reduce using rule 41 (factor -> varcte .)
+    CLOSEPAREN      reduce using rule 41 (factor -> varcte .)
+    COMMA           reduce using rule 41 (factor -> varcte .)
+
+
+state 43
+
+    (40) factor -> SUBTRACT . varcte
+    (42) varcte -> . ID
+    (43) varcte -> . CTEINT
+    (44) varcte -> . CTEFLOAT
+
+    ID              shift and go to state 35
+    CTEINT          shift and go to state 44
+    CTEFLOAT        shift and go to state 45
+
+    varcte                         shift and go to state 63
+
+state 44
+
+    (43) varcte -> CTEINT .
+
+    TIMES           reduce using rule 43 (varcte -> CTEINT .)
+    DIV             reduce using rule 43 (varcte -> CTEINT .)
+    SUM             reduce using rule 43 (varcte -> CTEINT .)
+    SUBTRACT        reduce using rule 43 (varcte -> CTEINT .)
+    BIGGERTHAN      reduce using rule 43 (varcte -> CTEINT .)
+    SMALLTHAN       reduce using rule 43 (varcte -> CTEINT .)
+    DIFFERENTTHAN   reduce using rule 43 (varcte -> CTEINT .)
+    SEMICOLON       reduce using rule 43 (varcte -> CTEINT .)
+    CLOSEPAREN      reduce using rule 43 (varcte -> CTEINT .)
+    COMMA           reduce using rule 43 (varcte -> CTEINT .)
+
+
+state 45
+
+    (44) varcte -> CTEFLOAT .
+
+    TIMES           reduce using rule 44 (varcte -> CTEFLOAT .)
+    DIV             reduce using rule 44 (varcte -> CTEFLOAT .)
+    SUM             reduce using rule 44 (varcte -> CTEFLOAT .)
+    SUBTRACT        reduce using rule 44 (varcte -> CTEFLOAT .)
+    BIGGERTHAN      reduce using rule 44 (varcte -> CTEFLOAT .)
+    SMALLTHAN       reduce using rule 44 (varcte -> CTEFLOAT .)
+    DIFFERENTTHAN   reduce using rule 44 (varcte -> CTEFLOAT .)
+    SEMICOLON       reduce using rule 44 (varcte -> CTEFLOAT .)
+    CLOSEPAREN      reduce using rule 44 (varcte -> CTEFLOAT .)
+    COMMA           reduce using rule 44 (varcte -> CTEFLOAT .)
+
+
+state 46
+
+    (18) condicion -> IF OPENPAREN expresion . CLOSEPAREN bloque ELSE bloque SEMICOLON
+    (19) condicion -> IF OPENPAREN expresion . CLOSEPAREN bloque SEMICOLON
+
+    CLOSEPAREN      shift and go to state 64
+
+
+state 47
+
+    (20) escritura -> PRINT OPENPAREN es1 . CLOSEPAREN SEMICOLON
+
+    CLOSEPAREN      shift and go to state 65
+
+
+state 48
+
+    (21) es1 -> expresion .
+    (23) es1 -> expresion . COMMA es1
+
+    CLOSEPAREN      reduce using rule 21 (es1 -> expresion .)
+    COMMA           shift and go to state 66
+
+
+state 49
+
+    (22) es1 -> CTESTRING .
+    (24) es1 -> CTESTRING . COMMA es1
+
+    CLOSEPAREN      reduce using rule 22 (es1 -> CTESTRING .)
+    COMMA           shift and go to state 67
+
+
+state 50
+
+    (4) vars2 -> vars3 TWODOTS tipo SEMICOLON . vars2
+    (5) vars2 -> vars3 TWODOTS tipo SEMICOLON .
+    (4) vars2 -> . vars3 TWODOTS tipo SEMICOLON vars2
+    (5) vars2 -> . vars3 TWODOTS tipo SEMICOLON
+    (6) vars3 -> . ID COMMA vars3
+    (7) vars3 -> . ID
+
+    OPENBRACKET     reduce using rule 5 (vars2 -> vars3 TWODOTS tipo SEMICOLON .)
+    ID              shift and go to state 12
+
+    vars3                          shift and go to state 11
+    vars2                          shift and go to state 68
+
+state 51
+
+    (25) asignacion -> ID EQUALS expresion SEMICOLON .
+
+    CLOSEBRACKET    reduce using rule 25 (asignacion -> ID EQUALS expresion SEMICOLON .)
+    ID              reduce using rule 25 (asignacion -> ID EQUALS expresion SEMICOLON .)
+    IF              reduce using rule 25 (asignacion -> ID EQUALS expresion SEMICOLON .)
+    PRINT           reduce using rule 25 (asignacion -> ID EQUALS expresion SEMICOLON .)
+
+
+state 52
+
+    (26) expresion -> exp BIGGERTHAN . exp
+    (30) exp -> . termino exp1 exp
+    (31) exp -> . termino
+    (34) termino -> . factor t1 termino
+    (35) termino -> . factor
+    (38) factor -> . OPENPAREN expresion CLOSEPAREN
+    (39) factor -> . SUM varcte
+    (40) factor -> . SUBTRACT varcte
+    (41) factor -> . varcte
+    (42) varcte -> . ID
+    (43) varcte -> . CTEINT
+    (44) varcte -> . CTEFLOAT
+
+    OPENPAREN       shift and go to state 40
+    SUM             shift and go to state 41
+    SUBTRACT        shift and go to state 43
+    ID              shift and go to state 35
+    CTEINT          shift and go to state 44
+    CTEFLOAT        shift and go to state 45
+
+    exp                            shift and go to state 69
+    termino                        shift and go to state 38
+    factor                         shift and go to state 39
+    varcte                         shift and go to state 42
+
+state 53
+
+    (27) expresion -> exp SMALLTHAN . exp
+    (30) exp -> . termino exp1 exp
+    (31) exp -> . termino
+    (34) termino -> . factor t1 termino
+    (35) termino -> . factor
+    (38) factor -> . OPENPAREN expresion CLOSEPAREN
+    (39) factor -> . SUM varcte
+    (40) factor -> . SUBTRACT varcte
+    (41) factor -> . varcte
+    (42) varcte -> . ID
+    (43) varcte -> . CTEINT
+    (44) varcte -> . CTEFLOAT
+
+    OPENPAREN       shift and go to state 40
+    SUM             shift and go to state 41
+    SUBTRACT        shift and go to state 43
+    ID              shift and go to state 35
+    CTEINT          shift and go to state 44
+    CTEFLOAT        shift and go to state 45
+
+    exp                            shift and go to state 70
+    termino                        shift and go to state 38
+    factor                         shift and go to state 39
+    varcte                         shift and go to state 42
+
+state 54
+
+    (28) expresion -> exp DIFFERENTTHAN . exp
+    (30) exp -> . termino exp1 exp
+    (31) exp -> . termino
+    (34) termino -> . factor t1 termino
+    (35) termino -> . factor
+    (38) factor -> . OPENPAREN expresion CLOSEPAREN
+    (39) factor -> . SUM varcte
+    (40) factor -> . SUBTRACT varcte
+    (41) factor -> . varcte
+    (42) varcte -> . ID
+    (43) varcte -> . CTEINT
+    (44) varcte -> . CTEFLOAT
+
+    OPENPAREN       shift and go to state 40
+    SUM             shift and go to state 41
+    SUBTRACT        shift and go to state 43
+    ID              shift and go to state 35
+    CTEINT          shift and go to state 44
+    CTEFLOAT        shift and go to state 45
+
+    exp                            shift and go to state 71
+    termino                        shift and go to state 38
+    factor                         shift and go to state 39
+    varcte                         shift and go to state 42
+
+state 55
+
+    (30) exp -> termino exp1 . exp
+    (30) exp -> . termino exp1 exp
+    (31) exp -> . termino
+    (34) termino -> . factor t1 termino
+    (35) termino -> . factor
+    (38) factor -> . OPENPAREN expresion CLOSEPAREN
+    (39) factor -> . SUM varcte
+    (40) factor -> . SUBTRACT varcte
+    (41) factor -> . varcte
+    (42) varcte -> . ID
+    (43) varcte -> . CTEINT
+    (44) varcte -> . CTEFLOAT
+
+    OPENPAREN       shift and go to state 40
+    SUM             shift and go to state 41
+    SUBTRACT        shift and go to state 43
+    ID              shift and go to state 35
+    CTEINT          shift and go to state 44
+    CTEFLOAT        shift and go to state 45
+
+    termino                        shift and go to state 38
+    exp                            shift and go to state 72
+    factor                         shift and go to state 39
+    varcte                         shift and go to state 42
+
+state 56
+
+    (32) exp1 -> SUM .
+
+    OPENPAREN       reduce using rule 32 (exp1 -> SUM .)
+    SUM             reduce using rule 32 (exp1 -> SUM .)
+    SUBTRACT        reduce using rule 32 (exp1 -> SUM .)
+    ID              reduce using rule 32 (exp1 -> SUM .)
+    CTEINT          reduce using rule 32 (exp1 -> SUM .)
+    CTEFLOAT        reduce using rule 32 (exp1 -> SUM .)
+
+
+state 57
+
+    (33) exp1 -> SUBTRACT .
+
+    OPENPAREN       reduce using rule 33 (exp1 -> SUBTRACT .)
+    SUM             reduce using rule 33 (exp1 -> SUBTRACT .)
+    SUBTRACT        reduce using rule 33 (exp1 -> SUBTRACT .)
+    ID              reduce using rule 33 (exp1 -> SUBTRACT .)
+    CTEINT          reduce using rule 33 (exp1 -> SUBTRACT .)
+    CTEFLOAT        reduce using rule 33 (exp1 -> SUBTRACT .)
+
+
+state 58
+
+    (34) termino -> factor t1 . termino
+    (34) termino -> . factor t1 termino
+    (35) termino -> . factor
+    (38) factor -> . OPENPAREN expresion CLOSEPAREN
+    (39) factor -> . SUM varcte
+    (40) factor -> . SUBTRACT varcte
+    (41) factor -> . varcte
+    (42) varcte -> . ID
+    (43) varcte -> . CTEINT
+    (44) varcte -> . CTEFLOAT
+
+    OPENPAREN       shift and go to state 40
+    SUM             shift and go to state 41
+    SUBTRACT        shift and go to state 43
+    ID              shift and go to state 35
+    CTEINT          shift and go to state 44
+    CTEFLOAT        shift and go to state 45
+
+    factor                         shift and go to state 39
+    termino                        shift and go to state 73
+    varcte                         shift and go to state 42
+
+state 59
+
+    (36) t1 -> TIMES .
+
+    OPENPAREN       reduce using rule 36 (t1 -> TIMES .)
+    SUM             reduce using rule 36 (t1 -> TIMES .)
+    SUBTRACT        reduce using rule 36 (t1 -> TIMES .)
+    ID              reduce using rule 36 (t1 -> TIMES .)
+    CTEINT          reduce using rule 36 (t1 -> TIMES .)
+    CTEFLOAT        reduce using rule 36 (t1 -> TIMES .)
+
+
+state 60
+
+    (37) t1 -> DIV .
+
+    OPENPAREN       reduce using rule 37 (t1 -> DIV .)
+    SUM             reduce using rule 37 (t1 -> DIV .)
+    SUBTRACT        reduce using rule 37 (t1 -> DIV .)
+    ID              reduce using rule 37 (t1 -> DIV .)
+    CTEINT          reduce using rule 37 (t1 -> DIV .)
+    CTEFLOAT        reduce using rule 37 (t1 -> DIV .)
+
+
+state 61
+
+    (38) factor -> OPENPAREN expresion . CLOSEPAREN
+
+    CLOSEPAREN      shift and go to state 74
+
+
+state 62
+
+    (39) factor -> SUM varcte .
+
+    TIMES           reduce using rule 39 (factor -> SUM varcte .)
+    DIV             reduce using rule 39 (factor -> SUM varcte .)
+    SUM             reduce using rule 39 (factor -> SUM varcte .)
+    SUBTRACT        reduce using rule 39 (factor -> SUM varcte .)
+    BIGGERTHAN      reduce using rule 39 (factor -> SUM varcte .)
+    SMALLTHAN       reduce using rule 39 (factor -> SUM varcte .)
+    DIFFERENTTHAN   reduce using rule 39 (factor -> SUM varcte .)
+    SEMICOLON       reduce using rule 39 (factor -> SUM varcte .)
+    CLOSEPAREN      reduce using rule 39 (factor -> SUM varcte .)
+    COMMA           reduce using rule 39 (factor -> SUM varcte .)
+
+
+state 63
+
+    (40) factor -> SUBTRACT varcte .
+
+    TIMES           reduce using rule 40 (factor -> SUBTRACT varcte .)
+    DIV             reduce using rule 40 (factor -> SUBTRACT varcte .)
+    SUM             reduce using rule 40 (factor -> SUBTRACT varcte .)
+    SUBTRACT        reduce using rule 40 (factor -> SUBTRACT varcte .)
+    BIGGERTHAN      reduce using rule 40 (factor -> SUBTRACT varcte .)
+    SMALLTHAN       reduce using rule 40 (factor -> SUBTRACT varcte .)
+    DIFFERENTTHAN   reduce using rule 40 (factor -> SUBTRACT varcte .)
+    SEMICOLON       reduce using rule 40 (factor -> SUBTRACT varcte .)
+    CLOSEPAREN      reduce using rule 40 (factor -> SUBTRACT varcte .)
+    COMMA           reduce using rule 40 (factor -> SUBTRACT varcte .)
+
+
+state 64
+
+    (18) condicion -> IF OPENPAREN expresion CLOSEPAREN . bloque ELSE bloque SEMICOLON
+    (19) condicion -> IF OPENPAREN expresion CLOSEPAREN . bloque SEMICOLON
+    (10) bloque -> . OPENBRACKET estatuto bloque1 CLOSEBRACKET
+    (11) bloque -> . OPENBRACKET estatuto CLOSEBRACKET
+    (12) bloque -> . OPENBRACKET CLOSEBRACKET
+
+    OPENBRACKET     shift and go to state 8
+
+    bloque                         shift and go to state 75
+
+state 65
+
+    (20) escritura -> PRINT OPENPAREN es1 CLOSEPAREN . SEMICOLON
+
+    SEMICOLON       shift and go to state 76
+
+
+state 66
+
+    (23) es1 -> expresion COMMA . es1
+    (21) es1 -> . expresion
+    (22) es1 -> . CTESTRING
+    (23) es1 -> . expresion COMMA es1
+    (24) es1 -> . CTESTRING COMMA es1
+    (26) expresion -> . exp BIGGERTHAN exp
+    (27) expresion -> . exp SMALLTHAN exp
+    (28) expresion -> . exp DIFFERENTTHAN exp
+    (29) expresion -> . exp
+    (30) exp -> . termino exp1 exp
+    (31) exp -> . termino
+    (34) termino -> . factor t1 termino
+    (35) termino -> . factor
+    (38) factor -> . OPENPAREN expresion CLOSEPAREN
+    (39) factor -> . SUM varcte
+    (40) factor -> . SUBTRACT varcte
+    (41) factor -> . varcte
+    (42) varcte -> . ID
+    (43) varcte -> . CTEINT
+    (44) varcte -> . CTEFLOAT
+
+    CTESTRING       shift and go to state 49
+    OPENPAREN       shift and go to state 40
+    SUM             shift and go to state 41
+    SUBTRACT        shift and go to state 43
+    ID              shift and go to state 35
+    CTEINT          shift and go to state 44
+    CTEFLOAT        shift and go to state 45
+
+    expresion                      shift and go to state 48
+    es1                            shift and go to state 77
+    exp                            shift and go to state 37
+    termino                        shift and go to state 38
+    factor                         shift and go to state 39
+    varcte                         shift and go to state 42
+
+state 67
+
+    (24) es1 -> CTESTRING COMMA . es1
+    (21) es1 -> . expresion
+    (22) es1 -> . CTESTRING
+    (23) es1 -> . expresion COMMA es1
+    (24) es1 -> . CTESTRING COMMA es1
+    (26) expresion -> . exp BIGGERTHAN exp
+    (27) expresion -> . exp SMALLTHAN exp
+    (28) expresion -> . exp DIFFERENTTHAN exp
+    (29) expresion -> . exp
+    (30) exp -> . termino exp1 exp
+    (31) exp -> . termino
+    (34) termino -> . factor t1 termino
+    (35) termino -> . factor
+    (38) factor -> . OPENPAREN expresion CLOSEPAREN
+    (39) factor -> . SUM varcte
+    (40) factor -> . SUBTRACT varcte
+    (41) factor -> . varcte
+    (42) varcte -> . ID
+    (43) varcte -> . CTEINT
+    (44) varcte -> . CTEFLOAT
+
+    CTESTRING       shift and go to state 49
+    OPENPAREN       shift and go to state 40
+    SUM             shift and go to state 41
+    SUBTRACT        shift and go to state 43
+    ID              shift and go to state 35
+    CTEINT          shift and go to state 44
+    CTEFLOAT        shift and go to state 45
+
+    es1                            shift and go to state 78
+    expresion                      shift and go to state 48
+    exp                            shift and go to state 37
+    termino                        shift and go to state 38
+    factor                         shift and go to state 39
+    varcte                         shift and go to state 42
+
+state 68
+
+    (4) vars2 -> vars3 TWODOTS tipo SEMICOLON vars2 .
+
+    OPENBRACKET     reduce using rule 4 (vars2 -> vars3 TWODOTS tipo SEMICOLON vars2 .)
+
+
+state 69
+
+    (26) expresion -> exp BIGGERTHAN exp .
+
+    SEMICOLON       reduce using rule 26 (expresion -> exp BIGGERTHAN exp .)
+    CLOSEPAREN      reduce using rule 26 (expresion -> exp BIGGERTHAN exp .)
+    COMMA           reduce using rule 26 (expresion -> exp BIGGERTHAN exp .)
+
+
+state 70
+
+    (27) expresion -> exp SMALLTHAN exp .
+
+    SEMICOLON       reduce using rule 27 (expresion -> exp SMALLTHAN exp .)
+    CLOSEPAREN      reduce using rule 27 (expresion -> exp SMALLTHAN exp .)
+    COMMA           reduce using rule 27 (expresion -> exp SMALLTHAN exp .)
+
+
+state 71
+
+    (28) expresion -> exp DIFFERENTTHAN exp .
+
+    SEMICOLON       reduce using rule 28 (expresion -> exp DIFFERENTTHAN exp .)
+    CLOSEPAREN      reduce using rule 28 (expresion -> exp DIFFERENTTHAN exp .)
+    COMMA           reduce using rule 28 (expresion -> exp DIFFERENTTHAN exp .)
+
+
+state 72
+
+    (30) exp -> termino exp1 exp .
+
+    BIGGERTHAN      reduce using rule 30 (exp -> termino exp1 exp .)
+    SMALLTHAN       reduce using rule 30 (exp -> termino exp1 exp .)
+    DIFFERENTTHAN   reduce using rule 30 (exp -> termino exp1 exp .)
+    SEMICOLON       reduce using rule 30 (exp -> termino exp1 exp .)
+    CLOSEPAREN      reduce using rule 30 (exp -> termino exp1 exp .)
+    COMMA           reduce using rule 30 (exp -> termino exp1 exp .)
+
+
+state 73
+
+    (34) termino -> factor t1 termino .
+
+    SUM             reduce using rule 34 (termino -> factor t1 termino .)
+    SUBTRACT        reduce using rule 34 (termino -> factor t1 termino .)
+    BIGGERTHAN      reduce using rule 34 (termino -> factor t1 termino .)
+    SMALLTHAN       reduce using rule 34 (termino -> factor t1 termino .)
+    DIFFERENTTHAN   reduce using rule 34 (termino -> factor t1 termino .)
+    SEMICOLON       reduce using rule 34 (termino -> factor t1 termino .)
+    CLOSEPAREN      reduce using rule 34 (termino -> factor t1 termino .)
+    COMMA           reduce using rule 34 (termino -> factor t1 termino .)
+
+
+state 74
+
+    (38) factor -> OPENPAREN expresion CLOSEPAREN .
+
+    TIMES           reduce using rule 38 (factor -> OPENPAREN expresion CLOSEPAREN .)
+    DIV             reduce using rule 38 (factor -> OPENPAREN expresion CLOSEPAREN .)
+    SUM             reduce using rule 38 (factor -> OPENPAREN expresion CLOSEPAREN .)
+    SUBTRACT        reduce using rule 38 (factor -> OPENPAREN expresion CLOSEPAREN .)
+    BIGGERTHAN      reduce using rule 38 (factor -> OPENPAREN expresion CLOSEPAREN .)
+    SMALLTHAN       reduce using rule 38 (factor -> OPENPAREN expresion CLOSEPAREN .)
+    DIFFERENTTHAN   reduce using rule 38 (factor -> OPENPAREN expresion CLOSEPAREN .)
+    SEMICOLON       reduce using rule 38 (factor -> OPENPAREN expresion CLOSEPAREN .)
+    CLOSEPAREN      reduce using rule 38 (factor -> OPENPAREN expresion CLOSEPAREN .)
+    COMMA           reduce using rule 38 (factor -> OPENPAREN expresion CLOSEPAREN .)
+
+
+state 75
+
+    (18) condicion -> IF OPENPAREN expresion CLOSEPAREN bloque . ELSE bloque SEMICOLON
+    (19) condicion -> IF OPENPAREN expresion CLOSEPAREN bloque . SEMICOLON
+
+    ELSE            shift and go to state 79
+    SEMICOLON       shift and go to state 80
+
+
+state 76
+
+    (20) escritura -> PRINT OPENPAREN es1 CLOSEPAREN SEMICOLON .
+
+    CLOSEBRACKET    reduce using rule 20 (escritura -> PRINT OPENPAREN es1 CLOSEPAREN SEMICOLON .)
+    ID              reduce using rule 20 (escritura -> PRINT OPENPAREN es1 CLOSEPAREN SEMICOLON .)
+    IF              reduce using rule 20 (escritura -> PRINT OPENPAREN es1 CLOSEPAREN SEMICOLON .)
+    PRINT           reduce using rule 20 (escritura -> PRINT OPENPAREN es1 CLOSEPAREN SEMICOLON .)
+
+
+state 77
+
+    (23) es1 -> expresion COMMA es1 .
+
+    CLOSEPAREN      reduce using rule 23 (es1 -> expresion COMMA es1 .)
+
+
+state 78
+
+    (24) es1 -> CTESTRING COMMA es1 .
+
+    CLOSEPAREN      reduce using rule 24 (es1 -> CTESTRING COMMA es1 .)
+
+
+state 79
+
+    (18) condicion -> IF OPENPAREN expresion CLOSEPAREN bloque ELSE . bloque SEMICOLON
+    (10) bloque -> . OPENBRACKET estatuto bloque1 CLOSEBRACKET
+    (11) bloque -> . OPENBRACKET estatuto CLOSEBRACKET
+    (12) bloque -> . OPENBRACKET CLOSEBRACKET
+
+    OPENBRACKET     shift and go to state 8
+
+    bloque                         shift and go to state 81
+
+state 80
+
+    (19) condicion -> IF OPENPAREN expresion CLOSEPAREN bloque SEMICOLON .
+
+    CLOSEBRACKET    reduce using rule 19 (condicion -> IF OPENPAREN expresion CLOSEPAREN bloque SEMICOLON .)
+    ID              reduce using rule 19 (condicion -> IF OPENPAREN expresion CLOSEPAREN bloque SEMICOLON .)
+    IF              reduce using rule 19 (condicion -> IF OPENPAREN expresion CLOSEPAREN bloque SEMICOLON .)
+    PRINT           reduce using rule 19 (condicion -> IF OPENPAREN expresion CLOSEPAREN bloque SEMICOLON .)
+
+
+state 81
+
+    (18) condicion -> IF OPENPAREN expresion CLOSEPAREN bloque ELSE bloque . SEMICOLON
+
+    SEMICOLON       shift and go to state 82
+
+
+state 82
+
+    (18) condicion -> IF OPENPAREN expresion CLOSEPAREN bloque ELSE bloque SEMICOLON .
+
+    CLOSEBRACKET    reduce using rule 18 (condicion -> IF OPENPAREN expresion CLOSEPAREN bloque ELSE bloque SEMICOLON .)
+    ID              reduce using rule 18 (condicion -> IF OPENPAREN expresion CLOSEPAREN bloque ELSE bloque SEMICOLON .)
+    IF              reduce using rule 18 (condicion -> IF OPENPAREN expresion CLOSEPAREN bloque ELSE bloque SEMICOLON .)
+    PRINT           reduce using rule 18 (condicion -> IF OPENPAREN expresion CLOSEPAREN bloque ELSE bloque SEMICOLON .)
+

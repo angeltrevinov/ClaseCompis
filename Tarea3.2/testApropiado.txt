@@ -1,0 +1,21 @@
+program TestApropiado; 
+
+var suma,resultado: int;
+suma2: float;
+
+{
+ if (4 > 2){
+
+    };
+    suma = 5;
+    resultado = 0;
+    suma2 = 6.34;
+    resultado = (4.5 * 2 - 1);
+
+    if (suma > 6) {
+        print("Suma es mayor");
+    } else {
+        print("Suma es menor ", 1.23); 
+    }; 
+
+}

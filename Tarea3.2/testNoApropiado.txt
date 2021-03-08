@@ -1,0 +1,6 @@
+program TestNoApropiado; 
+
+var suma: int;
+conversion: float;
+
+{
